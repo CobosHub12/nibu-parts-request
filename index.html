@@ -6,303 +6,120 @@
 <title>Solicitud de Precio de Partes — Nissan NIBU</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f4f4;
-    color: #1a1a1a;
-    min-height: 100vh;
-  }
-
-  header {
-    background: #C3002F;
-    padding: 18px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f4f4; color: #1a1a1a; min-height: 100vh; }
+  header { background: #C3002F; padding: 18px 32px; }
   header .brand { color: #fff; font-size: 20px; font-weight: 700; letter-spacing: 0.06em; }
   header .sub { color: rgba(255,255,255,0.7); font-size: 12px; margin-top: 2px; }
-
-  .container {
-    max-width: 700px;
-    margin: 36px auto;
-    padding: 0 16px 60px;
-  }
-
-  .card {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
-  .card-header {
-    background: #1a1a1a;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+  header .version { color: rgba(255,255,255,0.45); font-size: 10px; margin-top: 3px; letter-spacing: 0.04em; }
+  .container { max-width: 700px; margin: 36px auto; padding: 0 16px 60px; }
+  .card { background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 20px; }
+  .card-header { background: #1a1a1a; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
   .card-header span { color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.04em; }
   .folio-tag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); font-size: 11px; padding: 3px 10px; border-radius: 99px; }
-
   .card-body { padding: 24px; }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 700;
-    color: #aaa;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .section-label { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
   .section-label::after { content: ''; flex: 1; height: 1px; background: #eee; }
-
   .field-grid { display: grid; gap: 14px; }
   .field-grid.two { grid-template-columns: 1fr 1fr; }
-  @media(max-width: 520px) { .field-grid.two { grid-template-columns: 1fr; } }
-
+  @media(max-width:520px){ .field-grid.two { grid-template-columns: 1fr; } }
   .field { display: flex; flex-direction: column; gap: 5px; }
   .field label { font-size: 12px; color: #666; font-weight: 500; }
   .field label .req { color: #C3002F; margin-left: 2px; }
   .field label .opt { color: #bbb; font-weight: 400; font-size: 11px; }
-
-  input[type=text], input[type=email], select, textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    font-family: inherit;
-    color: #1a1a1a;
-    background: #fafafa;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: #C3002F;
-    box-shadow: 0 0 0 3px rgba(195,0,47,0.08);
-    background: #fff;
-  }
-  input.mono { font-family: 'Courier New', monospace; letter-spacing: 0.05em; font-size: 13px; }
+  input[type=text], input[type=email], select, textarea { width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; color: #1a1a1a; background: #fafafa; transition: border-color .15s, box-shadow .15s; outline: none; }
+  input:focus, select:focus, textarea:focus { border-color: #C3002F; box-shadow: 0 0 0 3px rgba(195,0,47,.08); background: #fff; }
+  input.mono { font-family: 'Courier New', monospace; letter-spacing: .05em; font-size: 13px; }
   textarea { resize: vertical; min-height: 72px; }
   select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
-
-  /* Parts table */
   .parts-list { display: flex; flex-direction: column; gap: 8px; }
-  .part-row {
-    display: grid;
-    grid-template-columns: 28px 1fr 1fr 32px;
-    gap: 8px;
-    align-items: center;
-  }
+  .part-row { display: grid; grid-template-columns: 28px 1fr 1fr 32px; gap: 8px; align-items: center; }
   .part-num-label { font-size: 12px; color: #bbb; text-align: center; font-weight: 600; }
-  .remove-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ccc;
-    font-size: 18px;
-    line-height: 1;
-    padding: 4px;
-    border-radius: 4px;
-    transition: color 0.15s, background 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .remove-btn { background: none; border: none; cursor: pointer; color: #ccc; font-size: 20px; line-height: 1; padding: 2px 6px; border-radius: 4px; transition: color .15s, background .15s; }
   .remove-btn:hover { color: #C3002F; background: #fde8ed; }
-
-  .add-btn {
-    width: 100%;
-    padding: 8px;
-    background: none;
-    border: 1.5px dashed #C3002F;
-    border-radius: 6px;
-    color: #C3002F;
-    font-size: 13px;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: background 0.15s;
-  }
+  .add-btn { width: 100%; padding: 8px; background: none; border: 1.5px dashed #C3002F; border-radius: 6px; color: #C3002F; font-size: 13px; font-family: inherit; cursor: pointer; margin-top: 8px; transition: background .15s; }
   .add-btn:hover { background: #fff0f3; }
-
-  /* CC rows */
   .cc-list { display: flex; flex-direction: column; gap: 8px; }
   .cc-row { display: grid; grid-template-columns: 1fr 1fr 32px; gap: 8px; align-items: center; }
-
-  /* Submit */
   .submit-area { display: flex; justify-content: flex-end; gap: 12px; padding-top: 8px; }
-  .btn-clear {
-    padding: 10px 22px;
-    background: none;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    font-family: inherit;
-    color: #888;
-    cursor: pointer;
-    transition: border-color 0.15s;
-  }
+  .btn-clear { padding: 10px 22px; background: none; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; color: #888; cursor: pointer; }
   .btn-clear:hover { border-color: #aaa; color: #555; }
-  .btn-submit {
-    padding: 10px 28px;
-    background: #C3002F;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: inherit;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.15s;
-  }
+  .btn-submit { padding: 10px 28px; background: #C3002F; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; font-family: inherit; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .15s; }
   .btn-submit:hover { background: #a8002a; }
   .btn-submit:disabled { background: #ddd; cursor: default; }
-
-  /* Success screen */
-  .success {
-    display: block;
-    text-align: center;
-    padding: 60px 32px;
-  }
-  .success .check-circle {
-    width: 64px; height: 64px;
-    background: #eaf3de;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 20px;
-    font-size: 28px;
-  }
-  .success h2 { font-size: 22px; color: #1a1a1a; margin-bottom: 8px; }
-  .success p { font-size: 14px; color: #888; line-height: 1.6; }
-  .success .folio-big { font-size: 28px; font-weight: 700; color: #C3002F; margin: 16px 0 4px; font-family: 'Courier New', monospace; }
-
-  /* Error toast */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: #1a1a1a; color: #fff;
-    padding: 12px 22px; border-radius: 8px;
-    font-size: 13px; white-space: nowrap;
-    display: none; z-index: 999;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-  }
-
-  /* Spinner */
-  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+  .success-screen { text-align: center; padding: 60px 32px; }
+  .check-circle { width: 72px; height: 72px; background: #eaf3de; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; color: #3b6d11; }
+  .success-screen h2 { font-size: 22px; color: #1a1a1a; margin-bottom: 10px; }
+  .success-screen p { font-size: 14px; color: #888; line-height: 1.7; }
+  .folio-big { font-size: 30px; font-weight: 700; color: #C3002F; margin: 18px 0 6px; font-family: 'Courier New', monospace; }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 12px 22px; border-radius: 8px; font-size: 13px; display: none; z-index: 999; box-shadow: 0 4px 16px rgba(0,0,0,.2); }
+  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
 
 <header>
-  <div>
-    <div class="brand">NISSAN</div>
-    <div class="sub">Parts Price Request — NIBU</div>
-  </div>
+  <div class="brand">NISSAN</div>
+  <div class="sub">Parts Price Request — NIBU</div>
+  <div class="version">v1.0 — jun 2026</div>
 </header>
 
 <div class="container">
 
-  <!-- FORM CARD -->
+  <!-- FORMULARIO -->
   <div class="card" id="form-card">
     <div class="card-header">
       <span>Solicitud de precio de partes</span>
-      <span class="folio-tag" id="folio-display">Generando folio...</span>
+      <span class="folio-tag" id="folio-display">—</span>
     </div>
     <div class="card-body">
 
-      <!-- Solicitante -->
       <div class="section-label">Datos del solicitante</div>
       <div class="field-grid two" style="margin-bottom:14px">
-        <div class="field">
-          <label>Nombre <span class="req">*</span></label>
-          <input type="text" id="f-nombre" placeholder="Ej. Jonathan">
-        </div>
-        <div class="field">
-          <label>Apellido <span class="req">*</span></label>
-          <input type="text" id="f-apellido" placeholder="Ej. Víquez Hernández">
-        </div>
+        <div class="field"><label>Nombre <span class="req">*</span></label><input type="text" id="f-nombre" placeholder="Ej. Jonathan"></div>
+        <div class="field"><label>Apellido <span class="req">*</span></label><input type="text" id="f-apellido" placeholder="Ej. Víquez Hernández"></div>
       </div>
       <div class="field-grid two">
-        <div class="field">
-          <label>Correo electrónico <span class="req">*</span></label>
-          <input type="email" id="f-correo" placeholder="correo@empresa.com">
-        </div>
+        <div class="field"><label>Correo electrónico <span class="req">*</span></label><input type="email" id="f-correo" placeholder="correo@empresa.com"></div>
         <div class="field">
           <label>País / Importador <span class="req">*</span></label>
           <select id="f-pais">
             <option value="">— Selecciona —</option>
-            <option>Argentina</option>
-            <option>Belice</option>
-            <option>Bolivia</option>
-            <option>Chile</option>
-            <option>Colombia</option>
-            <option>Costa Rica</option>
-            <option>Ecuador</option>
-            <option>El Salvador</option>
-            <option>Guatemala</option>
-            <option>Honduras</option>
-            <option>Jamaica</option>
-            <option>Nicaragua</option>
-            <option>Panamá</option>
-            <option>Paraguay</option>
-            <option>Perú</option>
-            <option>Puerto Rico</option>
-            <option>República Dominicana</option>
-            <option>Trinidad y Tobago</option>
-            <option>Uruguay</option>
-            <option>Venezuela</option>
+            <option>Argentina</option><option>Belice</option><option>Bolivia</option>
+            <option>Chile</option><option>Colombia</option><option>Costa Rica</option>
+            <option>Ecuador</option><option>El Salvador</option><option>Guatemala</option>
+            <option>Honduras</option><option>Jamaica</option><option>Nicaragua</option>
+            <option>Panamá</option><option>Paraguay</option><option>Perú</option>
+            <option>Puerto Rico</option><option>República Dominicana</option>
+            <option>Trinidad y Tobago</option><option>Uruguay</option><option>Venezuela</option>
             <option>Otro</option>
           </select>
         </div>
       </div>
 
-      <!-- Vehículo -->
       <div class="section-label" style="margin-top:24px">Datos del vehículo <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#ccc;font-size:10px">— opcional</span></div>
       <div class="field-grid two">
-        <div class="field">
-          <label>VIN <span class="opt">(opcional)</span></label>
-          <input type="text" id="f-vin" class="mono" placeholder="17 caracteres" maxlength="17">
-        </div>
-        <div class="field">
-          <label>Modelo / Año <span class="opt">(opcional)</span></label>
-          <input type="text" id="f-modelo" placeholder="Ej. Sentra 2023">
-        </div>
+        <div class="field"><label>VIN <span class="opt">(opcional)</span></label><input type="text" id="f-vin" class="mono" placeholder="17 caracteres" maxlength="17"></div>
+        <div class="field"><label>Modelo / Año <span class="opt">(opcional)</span></label><input type="text" id="f-modelo" placeholder="Ej. Sentra 2023"></div>
       </div>
 
-      <!-- Partes -->
       <div class="section-label" style="margin-top:24px">Número(s) de parte <span style="color:#C3002F;margin-left:2px">*</span></div>
       <div style="display:grid;grid-template-columns:28px 1fr 1fr 32px;gap:8px;margin-bottom:6px;padding:0 2px">
         <div></div>
-        <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">N° de parte</div>
-        <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Descripción <span style="font-weight:400">(opcional)</span></div>
+        <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.05em">N° de parte</div>
+        <div style="font-size:10px;color:#aaa;font-weight:600;text-transform:uppercase;letter-spacing:.05em">Descripción <span style="font-weight:400">(opcional)</span></div>
         <div></div>
       </div>
       <div class="parts-list" id="parts-list"></div>
       <button class="add-btn" onclick="addPart()">+ Agregar otra parte</button>
 
-      <!-- Comentarios -->
       <div class="section-label" style="margin-top:24px">Comentarios adicionales <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#ccc;font-size:10px">— opcional</span></div>
-      <div class="field">
-        <textarea id="f-comentarios" placeholder="Cualquier información adicional que ayude a procesar tu solicitud..."></textarea>
-      </div>
+      <textarea id="f-comentarios" placeholder="Cualquier información adicional..."></textarea>
 
-      <!-- CCs -->
       <div class="section-label" style="margin-top:24px">Destinatarios adicionales <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#ccc;font-size:10px">— opcional</span></div>
       <div class="cc-list" id="cc-list"></div>
       <button class="add-btn" onclick="addCC()">+ Agregar destinatario</button>
 
-      <!-- Submit -->
       <div class="submit-area" style="margin-top:28px">
         <button class="btn-clear" onclick="resetForm()">Limpiar</button>
         <button class="btn-submit" id="btn-submit" onclick="submitForm()">
@@ -314,107 +131,101 @@
     </div>
   </div>
 
-  <!-- SUCCESS CARD -->
-  <div class="card" id="success-card" style="display:none">
-    <div class="success" id="success-screen">
+  <!-- CONFIRMACIÓN -->
+  <div class="card" id="success-card">
+    <div class="success-screen">
       <div class="check-circle">✓</div>
       <h2>¡Solicitud enviada correctamente!</h2>
       <div class="folio-big" id="success-folio"></div>
-      <p>Hemos recibido tu solicitud.<br>Recibirás una respuesta en tu correo electrónico a la brevedad.</p>
-      <button class="btn-submit" style="margin: 28px auto 0; justify-content:center" onclick="newRequest()">Nueva solicitud</button>
+      <p>Hemos recibido tu solicitud.<br>Recibirás los precios en tu correo electrónico a la brevedad.</p>
+      <button class="btn-submit" style="margin:28px auto 0;justify-content:center" onclick="newRequest()">Enviar otra solicitud</button>
     </div>
   </div>
 
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── Config ─────────────────────────────────────────────────
-  // REEMPLAZA esta URL con la de tu Power Automate HTTP trigger
   const POWER_AUTOMATE_URL = "POWER_AUTOMATE_URL_AQUI";
 
-  // ── Estado ─────────────────────────────────────────────────
-  let partCount = 0;
-  let ccCount = 0;
+  let partCount = 0, ccCount = 0, currentFolio = '';
 
-  // ── Folio ──────────────────────────────────────────────────
   function generateFolio() {
     const now = new Date();
     const yy = String(now.getFullYear()).slice(2);
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const rnd = String(Math.floor(Math.random() * 900) + 100);
-    return `NIBU-${yy}${mm}-${rnd}`;
+    const mm = String(now.getMonth()+1).padStart(2,'0');
+    const rnd = String(Math.floor(Math.random()*900)+100);
+    return 'NIBU-'+yy+mm+'-'+rnd;
   }
-  const currentFolio = generateFolio();
-  document.getElementById('folio-display').textContent = currentFolio;
 
-  // ── Partes ─────────────────────────────────────────────────
-  function addPart(np = '', desc = '') {
+  function init() {
+    currentFolio = generateFolio();
+    document.getElementById('folio-display').textContent = currentFolio;
+    showScreen('form');
+    document.getElementById('parts-list').innerHTML = '';
+    document.getElementById('cc-list').innerHTML = '';
+    partCount = 0; ccCount = 0;
+    addPart();
+  }
+
+  function showScreen(which) {
+    document.getElementById('form-card').style.display   = which === 'form'    ? 'block' : 'none';
+    document.getElementById('success-card').style.display = which === 'success' ? 'block' : 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function addPart(np='', desc='') {
     partCount++;
     const idx = partCount;
-    const list = document.getElementById('parts-list');
     const row = document.createElement('div');
     row.className = 'part-row';
-    row.id = `part-row-${idx}`;
-    row.innerHTML = `
-      <div class="part-num-label" id="pnum-${idx}">1</div>
-      <input type="text" id="np-${idx}" class="mono" value="${np}" placeholder="Ej. K33016KHEA">
-      <input type="text" id="desc-${idx}" value="${desc}" placeholder="Descripción">
-      <button class="remove-btn" onclick="removePart('part-row-${idx}')" title="Eliminar">×</button>
-    `;
-    list.appendChild(row);
+    row.id = 'part-row-'+idx;
+    row.innerHTML =
+      '<div class="part-num-label" id="pnum-'+idx+'">1</div>' +
+      '<input type="text" id="np-'+idx+'" class="mono" value="'+np+'" placeholder="Ej. K33016KHEA">' +
+      '<input type="text" id="desc-'+idx+'" value="'+desc+'" placeholder="Descripción">' +
+      '<button class="remove-btn" onclick="removePart(\'part-row-'+idx+'\')" title="Eliminar">×</button>';
+    document.getElementById('parts-list').appendChild(row);
     renumber();
   }
 
   function removePart(id) {
-    const el = document.getElementById(id);
-    if (el && document.querySelectorAll('.part-row').length > 1) {
-      el.remove(); renumber();
+    if (document.querySelectorAll('.part-row').length > 1) {
+      document.getElementById(id).remove();
+      renumber();
     }
   }
 
   function renumber() {
-    document.querySelectorAll('.part-row').forEach((r, i) => {
-      const lbl = r.querySelector('[id^="pnum-"]');
-      if (lbl) lbl.textContent = i + 1;
+    document.querySelectorAll('.part-row').forEach(function(r,i){
+      var lbl = r.querySelector('[id^="pnum-"]');
+      if(lbl) lbl.textContent = i+1;
     });
   }
 
-  // ── CCs ────────────────────────────────────────────────────
-  function addCC(name = '', email = '') {
+  function addCC() {
     ccCount++;
-    const idx = ccCount;
-    const list = document.getElementById('cc-list');
-    const row = document.createElement('div');
+    var idx = ccCount;
+    var row = document.createElement('div');
     row.className = 'cc-row';
-    row.id = `cc-row-${idx}`;
-    row.innerHTML = `
-      <input type="text" id="cc-name-${idx}" value="${name}" placeholder="Nombre completo">
-      <input type="email" id="cc-email-${idx}" value="${email}" placeholder="correo@empresa.com">
-      <button class="remove-btn" onclick="removeCC('cc-row-${idx}')" title="Eliminar">×</button>
-    `;
-    list.appendChild(row);
+    row.id = 'cc-row-'+idx;
+    row.innerHTML =
+      '<input type="text" id="cc-name-'+idx+'" placeholder="Nombre completo">' +
+      '<input type="email" id="cc-email-'+idx+'" placeholder="correo@empresa.com">' +
+      '<button class="remove-btn" onclick="document.getElementById(\'cc-row-'+idx+'\').remove()" title="Eliminar">×</button>';
+    document.getElementById('cc-list').appendChild(row);
   }
 
-  function removeCC(id) {
-    const el = document.getElementById(id);
-    if (el) el.remove();
-  }
-
-  // ── Toast ──────────────────────────────────────────────────
-  function showToast(msg) {
-    const t = document.getElementById('toast');
+  function toast(msg) {
+    var t = document.getElementById('toast');
     t.textContent = msg;
     t.style.display = 'block';
-    setTimeout(() => t.style.display = 'none', 3500);
+    setTimeout(function(){ t.style.display='none'; }, 3500);
   }
 
-  // ── Reset ──────────────────────────────────────────────────
   function resetForm() {
-    ['f-nombre','f-apellido','f-correo','f-vin','f-modelo','f-comentarios'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
+    ['f-nombre','f-apellido','f-correo','f-vin','f-modelo','f-comentarios'].forEach(function(id){
+      var el = document.getElementById(id); if(el) el.value='';
     });
     document.getElementById('f-pais').value = '';
     document.getElementById('parts-list').innerHTML = '';
@@ -424,98 +235,77 @@
   }
 
   function newRequest() {
-    document.getElementById('form-card').style.display = 'block';
-    document.getElementById('success-card').style.display = 'none';
     resetForm();
-    document.getElementById('folio-display').textContent = generateFolio();
+    currentFolio = generateFolio();
+    document.getElementById('folio-display').textContent = currentFolio;
+    showScreen('form');
   }
 
-  // ── Submit ─────────────────────────────────────────────────
   async function submitForm() {
-    const nombre   = document.getElementById('f-nombre').value.trim();
-    const apellido = document.getElementById('f-apellido').value.trim();
-    const correo   = document.getElementById('f-correo').value.trim();
-    const pais     = document.getElementById('f-pais').value;
+    var nombre   = document.getElementById('f-nombre').value.trim();
+    var apellido = document.getElementById('f-apellido').value.trim();
+    var correo   = document.getElementById('f-correo').value.trim();
+    var pais     = document.getElementById('f-pais').value;
 
-    if (!nombre || !apellido || !correo || !pais) {
-      showToast('⚠ Completa los campos obligatorios del solicitante.');
-      return;
-    }
-    if (!/\S+@\S+\.\S+/.test(correo)) {
-      showToast('⚠ Ingresa un correo electrónico válido.');
-      return;
-    }
+    if (!nombre || !apellido || !correo || !pais) { toast('⚠ Completa los campos obligatorios.'); return; }
+    if (!/\S+@\S+\.\S+/.test(correo)) { toast('⚠ Ingresa un correo electrónico válido.'); return; }
 
-    // Recolectar partes
-    const partes = [];
-    document.querySelectorAll('.part-row').forEach(r => {
-      const np = r.querySelector('input[id^="np-"]')?.value.trim();
-      const desc = r.querySelector('input[id^="desc-"]')?.value.trim();
-      if (np) partes.push({ numero_parte: np, descripcion: desc || '' });
+    var partes = [];
+    document.querySelectorAll('.part-row').forEach(function(r){
+      var np = r.querySelector('input[id^="np-"]').value.trim();
+      var desc = r.querySelector('input[id^="desc-"]').value.trim();
+      if(np) partes.push({numero_parte: np, descripcion: desc});
     });
-    if (partes.length === 0) {
-      showToast('⚠ Agrega al menos un número de parte.');
-      return;
-    }
+    if (partes.length === 0) { toast('⚠ Agrega al menos un número de parte.'); return; }
 
-    // Recolectar CCs
-    const ccs = [];
-    document.querySelectorAll('.cc-row').forEach(r => {
-      const n = r.querySelector('input[type=text]')?.value.trim();
-      const e = r.querySelector('input[type=email]')?.value.trim();
-      if (e) ccs.push({ nombre: n || '', correo: e });
+    var ccs = [];
+    document.querySelectorAll('.cc-row').forEach(function(r){
+      var n = r.querySelector('input[type=text]').value.trim();
+      var e = r.querySelector('input[type=email]').value.trim();
+      if(e) ccs.push({nombre: n, correo: e});
     });
 
-    const payload = {
-      folio:                currentFolio,
-      nombre,
-      apellido,
-      correo_solicitante:   correo,
-      pais,
-      vin:                  document.getElementById('f-vin').value.trim(),
-      modelo:               document.getElementById('f-modelo').value.trim(),
-      partes,
+    var payload = {
+      folio: currentFolio,
+      nombre: nombre,
+      apellido: apellido,
+      correo_solicitante: correo,
+      pais: pais,
+      vin: document.getElementById('f-vin').value.trim(),
+      modelo: document.getElementById('f-modelo').value.trim(),
+      partes: partes,
       comentario_importador: document.getElementById('f-comentarios').value.trim(),
-      ccs,
-      fecha_solicitud:      new Date().toISOString()
+      ccs: ccs,
+      fecha_solicitud: new Date().toISOString()
     };
 
-    // UI — loading
-    const btn = document.getElementById('btn-submit');
+    var btn = document.getElementById('btn-submit');
     btn.disabled = true;
     document.getElementById('spinner').style.display = 'block';
     document.getElementById('btn-text').textContent = 'Enviando...';
 
     try {
       if (POWER_AUTOMATE_URL === "POWER_AUTOMATE_URL_AQUI") {
-        // MODO PRUEBA — simula envío exitoso
-        await new Promise(r => setTimeout(r, 1200));
-        showSuccess();
+        await new Promise(function(r){ setTimeout(r, 1200); });
       } else {
-        const res = await fetch(POWER_AUTOMATE_URL, {
+        var res = await fetch(POWER_AUTOMATE_URL, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {'Content-Type':'application/json'},
           body: JSON.stringify(payload)
         });
-        if (!res.ok) throw new Error('Error en el servidor');
-        showSuccess();
+        if (!res.ok) throw new Error('Error');
       }
-    } catch (e) {
-      showToast('⚠ Error al enviar. Intenta de nuevo.');
+      document.getElementById('success-folio').textContent = currentFolio;
+      showScreen('success');
+    } catch(e) {
+      toast('⚠ Error al enviar. Intenta de nuevo.');
       btn.disabled = false;
       document.getElementById('spinner').style.display = 'none';
       document.getElementById('btn-text').textContent = 'Enviar solicitud →';
     }
   }
 
-  function showSuccess() {
-    document.getElementById('form-card').style.display = 'none';
-    document.getElementById('success-card').style.display = 'block';
-    document.getElementById('success-folio').textContent = currentFolio;
-  }
-
-  // ── Init ───────────────────────────────────────────────────
-  addPart();
+  init();
 </script>
 </body>
 </html>
