@@ -171,7 +171,7 @@
 
   /* Success screen */
   .success {
-    display: none;
+    display: block;
     text-align: center;
     padding: 60px 32px;
   }
@@ -511,7 +511,6 @@
   function showSuccess() {
     document.getElementById('form-card').style.display = 'none';
     document.getElementById('success-card').style.display = 'block';
-    window.scrollTo(0, 0);
     document.getElementById('success-folio').textContent = currentFolio;
   }
 
